@@ -5,6 +5,15 @@ searchData();
 let comparador1 = [undefined];
 let comparador2 = [];
 
+let input = document.getElementById("inputText");
+
+input.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        document.getElementById("inputSend").click();
+    }
+});
+
 const chat = document.querySelector("main");
 
 

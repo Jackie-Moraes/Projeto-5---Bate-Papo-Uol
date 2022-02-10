@@ -1,16 +1,50 @@
-let name = prompt("Qual o seu nome?");
+let nameUser = prompt("Qual o seu nome de usuário?");
+verifyUser();
+searchData();
+
+
 let comparador1 = [undefined];
-let comparador2 = [null];
+let comparador2 = [];
 
 const chat = document.querySelector("main");
 
-searchData();
+
 setInterval(searchData, 3000);
+
+
+
+function verifyUser() {
+    const userObject = {
+        name: nameUser
+    };
+
+    const promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/participants", userObject);
+
+    promise.catch(duplicateUser)
+}
+
+
+function duplicateUser(error) {
+    const locateError = parseInt(error.response.status);
+
+    if (locateError !== 200) {
+        nameUser = prompt("Este nome de usuário já está em uso, utilize outro.");
+        verifyUser();
+    }
+}
+
+
+
+
 
 function searchData() {
     const chatData = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages");
     chatData.then(renderChatData);
 }
+
+
+
+
 
 function renderChatData(info) {
     let message = document.querySelector('.mensagem');
@@ -20,8 +54,10 @@ function renderChatData(info) {
     let sentText = null;
     let type = null;
     let time = null;
+
+    comparador1 = info.data;
     
-    if (comparador2 !== comparador1) {
+    if (comparador2 != comparador1) {
         chat.innerHTML = "";
 
         for (let i = 0; i < 100; i++) {
@@ -39,8 +75,8 @@ function renderChatData(info) {
                 chat.innerHTML += `<div class="${type} mensagem"><p> <span class="time">(${time})</span> <span><strong>${username}</strong> reservadamente para <strong>${target}</strong>:</span> <span>${sentText}</span> </p></div>`
             }
         }
-        comparador1 = info.data;
-        comparador2 = comparador1;
         message.scrollIntoView();
     }
+
+    comparador2 = comparador1;
 }

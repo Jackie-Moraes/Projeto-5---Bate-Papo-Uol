@@ -10,7 +10,7 @@ const chat = document.querySelector("main");
 
 
 setInterval(searchData, 3000);
-
+setInterval(locateUser, 5000)
 
 
 function verifyUser() {
@@ -34,17 +34,18 @@ function duplicateUser(error) {
 }
 
 
+function locateUser() {
+    const userObject = {
+        name: nameUser
+    };
 
-
+    const confirmActivity = axios.post('https://mock-api.driven.com.br/api/v4/uol/status', userObject)
+}
 
 function searchData() {
     const chatData = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages");
     chatData.then(renderChatData);
 }
-
-
-
-
 
 function renderChatData(info) {
     let message = document.querySelector('.mensagem');

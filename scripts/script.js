@@ -2,7 +2,6 @@ let nameUser = prompt("Qual o seu nome de usuário?");
 verifyUser();
 searchData();
 
-
 let comparador1 = [undefined];
 let comparador2 = [];
 
@@ -11,6 +10,7 @@ const chat = document.querySelector("main");
 
 setInterval(searchData, 3000);
 setInterval(locateUser, 5000)
+
 
 
 function verifyUser() {
@@ -42,10 +42,12 @@ function locateUser() {
     const confirmActivity = axios.post('https://mock-api.driven.com.br/api/v4/uol/status', userObject)
 }
 
+
 function searchData() {
     const chatData = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages");
     chatData.then(renderChatData);
 }
+
 
 function renderChatData(info) {
     let message = document.querySelector('.mensagem');
@@ -72,12 +74,29 @@ function renderChatData(info) {
                 chat.innerHTML += `<div class="${type} mensagem"><p> <span class="time">(${time})</span> <span><strong>${username}</strong></span> <span>${sentText}</span> </p></div>`
             } else if (type === "message") {
                 chat.innerHTML += `<div class="${type} mensagem"><p> <span class="time">(${time})</span> <span><strong>${username}</strong> para <strong>${target}</strong>:</span> <span>${sentText}</span> </p></div>`
-            } else {
+            } else if (target === nameUser) {
                 chat.innerHTML += `<div class="${type} mensagem"><p> <span class="time">(${time})</span> <span><strong>${username}</strong> reservadamente para <strong>${target}</strong>:</span> <span>${sentText}</span> </p></div>`
             }
         }
         message.scrollIntoView();
     }
-
     comparador2 = comparador1;
+}
+
+
+function sendMessage() {
+    
+    let messageLocation = document.querySelector('.message');
+    let messageInput = messageLocation.value
+    messageSent = {
+        from: nameUser,
+        to: "Todos",
+        text: messageInput,
+        type: 'message'
+    };
+    
+    messageLocation.value = "";
+
+    const sendData = axios.post('https://mock-api.driven.com.br/api/v4/uol/messages', messageSent)
+
 }

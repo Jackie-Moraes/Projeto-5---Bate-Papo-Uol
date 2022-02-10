@@ -75,7 +75,7 @@ function renderChatData(info) {
             } else if (type === "message") {
                 chat.innerHTML += `<div class="${type} mensagem"><p> <span class="time">(${time})</span> <span><strong>${username}</strong> para <strong>${target}</strong>:</span> <span>${sentText}</span> </p></div>`
             } else if (target === nameUser) {
-                chat.innerHTML += `<div class="${type} mensagem"><p> <span class="time">(${time})</span> <span><strong>${username}</strong> reservadamente para <strong>${target}</strong>:</span> <span>${sentText}</span> </p></div>`
+                chat.innerHTML += `<div class="${type} mensagem" data-identifier="message"><p> <span class="time">(${time})</span> <span><strong>${username}</strong> reservadamente para <strong>${target}</strong>:</span> <span>${sentText}</span> </p></div>`
             }
         }
         message.scrollIntoView();
@@ -97,5 +97,12 @@ function sendMessage() {
     messageLocation.value = "";
 
     const sendData = axios.post('https://mock-api.driven.com.br/api/v4/uol/messages', messageSent)
+    sendData.catch(relogar);
 
+}
+
+
+function relogar() {
+    alert("Deu xabu, vamos recarregar a página.");
+    window.location.reload();
 }

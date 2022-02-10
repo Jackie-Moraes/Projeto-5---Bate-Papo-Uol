@@ -86,7 +86,7 @@ function renderChatData(info) {
 
 function sendMessage() {
     
-    let messageLocation = document.querySelector('.message');
+    let messageLocation = document.querySelector('.messageInput');
     let messageInput = messageLocation.value
     messageSent = {
         from: nameUser,
@@ -94,7 +94,6 @@ function sendMessage() {
         text: messageInput,
         type: 'message'
     };
-    
     messageLocation.value = "";
 
     const sendData = axios.post('https://mock-api.driven.com.br/api/v4/uol/messages', messageSent)

@@ -2,8 +2,9 @@ let nameUser = prompt("Qual o seu nome de usuário?");
 verifyUser();
 searchData();
 
-let comparador1 = [undefined];
-let comparador2 = [];
+let newMessages = [undefined];
+let oldMessages = [];
+let messageCompareCounter = undefined;
 
 let input = document.getElementById("inputText");
 
@@ -14,11 +15,11 @@ input.addEventListener("keyup", function(event) {
     }
 });
 
-const chat = document.querySelector("main");
+const chat = document.querySelector(".mensagens");
 
 
 setInterval(searchData, 3000);
-setInterval(locateUser, 5000)
+setInterval(locateUser, 5000);
 
 
 
@@ -59,7 +60,7 @@ function searchData() {
 
 
 function renderChatData(info) {
-    let message = document.querySelector('.mensagem');
+    let message = document.querySelector('.mensagens');
 
     let username = null;
     let target = null;
@@ -67,9 +68,17 @@ function renderChatData(info) {
     let type = null;
     let time = null;
 
-    comparador1 = info.data;
+    newMessages = info.data;
+
+    messageCompareCounter = 0;
+    for (let i = 0; i < newMessages.length; i++) {
+        if (newMessages[i] === oldMessages[i]) {
+            messageCompareCounter++;
+        }
+    }
     
-    if (comparador2 != comparador1) {
+    // Não consigo testar a condicional, muita gente logando o tempo todo.
+    if (newMessages.length !== messageCompareCounter) {
         chat.innerHTML = "";
 
         for (let i = 0; i < 100; i++) {
@@ -86,10 +95,11 @@ function renderChatData(info) {
             } else if (target === nameUser) {
                 chat.innerHTML += `<div class="${type} mensagem" data-identifier="message"><p> <span class="time">(${time})</span> <span><strong>${username}</strong> reservadamente para <strong>${target}</strong>:</span> <span>${sentText}</span> </p></div>`
             }
+            message.scrollIntoView({behavior: "auto", block: "end", inline: "nearest"});
         }
-        message.scrollIntoView();
+        
     }
-    comparador2 = comparador1;
+    oldMessages = newMessages;
 }
 
 

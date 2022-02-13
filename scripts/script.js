@@ -1,4 +1,4 @@
-// let nameUser = "";
+let nameUser = "";
 
 
 let newMessages = [undefined];
@@ -16,8 +16,8 @@ input.addEventListener("keyup", function(event) {
 
 const chat = document.querySelector(".mensagens");
 
-//let searchInterval = setInterval(searchData, 3000);
-//let pingUserInterval = setInterval(locateUser, 5000);
+let searchInterval = setInterval(searchData, 3000);
+let pingUserInterval = setInterval(locateUser, 5000);
 
 function callUser() {
     nameUser = document.querySelector('.info-login input').value
@@ -101,7 +101,7 @@ function renderChatData(info) {
             } else if (target === nameUser) {
                 chat.innerHTML += `<div class="${type} mensagem" data-identifier="message"><p> <span class="time">(${time})</span> <span><strong>${username}</strong> reservadamente para <strong>${target}</strong>:</span> <span>${sentText}</span> </p></div>`
             }
-            message.scrollIntoView({behavior: "auto", block: "end", inline: "nearest"});
+            message.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
         }
         
     }

@@ -16,20 +16,37 @@
     </head>
 
     <body>
-        <header>
+
+        <section>
+            <div class="layout-login">
+                <div class="login-logo">
+                    <img src="images/logo 1.svg" alt="Logo Uol">
+                    
+                    <div class="info-login">
+                        <input type="text" placeholder="Digite seu nome"/>
+                        <p></p>
+                        <button onclick="callUser()">Entrar</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <header class="hidden">
             <nav>
                 <img src="images/logo 1.svg" alt="Logo Uol">
                 <ion-icon name="people"></ion-icon>
             </nav>
         </header>        
 
-        <main>
+        <main class="hidden">
+            
+
             <div class="mensagens">
 
             </div>
         </main>
 
-        <footer>
+        <footer class="hidden">
             <input class="messageInput" type="text" placeholder="Escreva aqui..." id="inputText">
             <ion-icon name="paper-plane-outline" onclick="sendMessage()" data-identifier="send-message" id="inputSend"></ion-icon>
         </footer>

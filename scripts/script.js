@@ -1,6 +1,5 @@
-let nameUser = prompt("Qual o seu nome de usuário?");
-verifyUser();
-searchData();
+// let nameUser = "";
+
 
 let newMessages = [undefined];
 let oldMessages = [];
@@ -17,11 +16,14 @@ input.addEventListener("keyup", function(event) {
 
 const chat = document.querySelector(".mensagens");
 
+//let searchInterval = setInterval(searchData, 3000);
+//let pingUserInterval = setInterval(locateUser, 5000);
 
-setInterval(searchData, 3000);
-setInterval(locateUser, 5000);
-
-
+function callUser() {
+    nameUser = document.querySelector('.info-login input').value
+    verifyUser();
+    searchData();
+}
 
 function verifyUser() {
     const userObject = {
@@ -29,6 +31,10 @@ function verifyUser() {
     };
 
     const promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/participants", userObject);
+    document.querySelector('header').classList.remove('hidden')
+    document.querySelector('main').classList.remove('hidden')
+    document.querySelector('footer').classList.remove('hidden')
+    document.querySelector('section').classList.add('hidden')
 
     promise.catch(duplicateUser)
 }
